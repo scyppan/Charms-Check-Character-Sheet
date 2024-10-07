@@ -75,6 +75,7 @@ function postroll(rolldeets){
 	window.parent.postMessage(alltext,"*");
 	displayroll(rolldeets, alltext);
 }
+
 function roll(id){
 	
 	rolldeets={
