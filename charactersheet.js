@@ -758,6 +758,7 @@ function setbooks(){
 	return books;
 	
 }
+
 function setpotions(){
 	let standardpotionssection = document.getElementById("standardpotions");
 	let nonbookpotions=[];
@@ -837,7 +838,6 @@ function setpotions(){
 		return mypots;
 }
 
-
 function setalchemical(){
 	let alchemicalpotionssection = document.getElementById("alchemicalpotions");
 	let nonbookpotions=[];
@@ -916,6 +916,7 @@ function setalchemical(){
 		
 		return mypots || [];
 }
+
 function setpets(){
 	let allpets=Array.from(document.getElementById("allpets").children).map(child => child.textContent);
 	let mypets=[];
@@ -941,6 +942,7 @@ function setpets(){
 	
 	return mypets;
 }
+
 function setinventory(){
 	let inventory=Array.from(document.getElementById("inventoryitems").children).map(child => child.textContent);
 	let inventoryitems=[];
@@ -995,6 +997,7 @@ function setinventory(){
 	
 	return inventoryitems;
 }
+
 function setrelationships(){
 let relationshipsection = document.getElementById("relationships");
 let relationships = [];
@@ -1018,6 +1021,7 @@ if (relationshipsection && relationshipsection.children.length > 0) {
 
 return relationships;
 }
+
 //==========
 //Utility
 //==========
@@ -1137,9 +1141,11 @@ function getrolltypetext(rolldeets){
 		default: return `rolls a ${rolldeets.val} roll`;
 	}
 }
+
 function getrollthreshtext(rolldeets){
 	if(rolldeets.threshold){return `(needs a total of ${rolldeets.threshold} or higher)`} else{return "";}
 }
+
 function getrollresulttext(rolldeets){
     
     let resulttext = "";
@@ -1179,11 +1185,10 @@ function getrollresulttext(rolldeets){
 function getrolltotal(rolldeets){
 	return rolldeets.abilityval+rolldeets.characteristic+rolldeets.dice+rolldeets.equipment+rolldeets.parental+rolldeets.skillval+rolldeets.temp+rolldeets.trait;
 }
+
 function convertskilllisttoarray(list){
 	return list.split(', ');
 }
-
-
 
 function getuncategorizedbooks(bookrecords){
 
@@ -1234,6 +1239,7 @@ function collapseall(className) {
         collapse(elem);
     });
 }
+
 function togglespellproflistings(){
 	let btn = document.getElementById("collapseallbtn");
 	
@@ -1271,6 +1277,7 @@ function reallyexpandall(){
         elem.style.display="block";
     });
 }
+
 function btnclicked(id){
 	
 	let charsheet = document.getElementById("charsheetsection"); 
@@ -1316,6 +1323,7 @@ parentelem.prepend(newdiv);
 }
 
 };
+
 //==========
 //interface
 //==========
@@ -1358,7 +1366,6 @@ function assignbtntxt(){
 	document.getElementById("permissiveness").textContent = `Permissiveness ${charvals.permissiveness}`;
 	document.getElementById("wealth").textContent = `Wealth ${charvals.wealth}`;
 }
-
 
 function assignfavspells(){
 	
@@ -1493,6 +1500,7 @@ Bonuses: ${entry.type} (${entry.amount})`;
 	gearsection.appendChild(accessory3div);
 	
 }
+
 function assignreadbooks(){
 
 	let allreadbooks = document.getElementById("allreadbooks"); //display of books
@@ -1578,7 +1586,6 @@ Description: ${record.description}`;
     }
 }
 
-
 function assignerrorbooks(records, allreadbooks){
 	
 	if(records.length>0){
@@ -1606,6 +1613,7 @@ function assignerrorbooks(records, allreadbooks){
         });
     }
 }
+
 function assignallknownspells(){
 	
 	let sortedlist=charvals.spells.sort((a, b) => {
@@ -1725,6 +1733,7 @@ ${prof.skill} (${prof.subtype})`;
 		}
 	});
 }
+
 function assignallknownstandardpotions(){
 	let sortedlist=charvals.standardpotions.sort((a,b)=>{
 		return a.threshold - b.threshold;
@@ -1798,6 +1807,7 @@ Raw Effect: ${pot.raweffect}`;
 	document.getElementById("allknownpots-Alchemicaldiv").appendChild(potentrydiv);
 	});
 }
+
 function assignpets(){
 
 	charvals.pets.forEach(pet=>{
@@ -1819,6 +1829,7 @@ Movement: Ground: ${pet.ground} | Water: ${pet.water} | Air: ${pet.air}`;
 		document.getElementById("petsection").appendChild(petentrydiv);
 	});
 }
+
 function assigninventory(){
 	charvals.inventory.forEach(itm=>{
 	
@@ -1904,6 +1915,7 @@ Potion Effects: ${itm.potioneffects}`;
 			document.getElementById("inventorysection").appendChild(itementrydiv);
 			});
 			}
+
 			
 function assignrelationships(){
 
@@ -1917,6 +1929,7 @@ ${rel.notes.trimStart()}`;
 	});
 
 }
+
 //==========
 //Liio Tools
 //==========
@@ -1959,6 +1972,7 @@ function startscripts(){
 	togglespellproflistings();
 	showelements();
 }
+
 function hideelements() {
     let interval = setInterval(() => {
         let elms = document.getElementsByClassName("maindisplay");
@@ -2088,6 +2102,7 @@ function processproficiencies(proficienciesdata) {
         proficiencies.push(proficiency);
     });
 }
+
 function processoutfits(outfitsdata){
 	Object.keys(outfitsdata).forEach(key => {
 		let entry = outfitsdata[key];
@@ -2333,6 +2348,7 @@ function processbooks(booksdata){
 		books.push(book);
 		});
 }
+
 function processstandardpotions(potionsdata){
 	Object.keys(potionsdata).forEach(key=>{
 		let entry=potionsdata[key];
@@ -2378,6 +2394,7 @@ function processalchemicalpotions(potionsdata){
 		alchemicalpotions.push(potion);
 	});
 }
+
 function processnamedcreatures(namedcreaturesdata){
 	Object.keys(namedcreaturesdata).forEach(key=>{
 		let entry=namedcreaturesdata[key];
@@ -2399,6 +2416,7 @@ function processnamedcreatures(namedcreaturesdata){
 		namedcreatures.push(namedcreature);
 	});
 }
+
 function processitems(itemsdata){
 
 	Object.keys(itemsdata).forEach(key=>{
@@ -2414,6 +2432,7 @@ function processitems(itemsdata){
 		items.push(item);
 	});
 }
+
 function processgeneralitems(generalitemsdata){
 	Object.keys(generalitemsdata).forEach(key=>{
 		let entry=generalitemsdata[key];
@@ -2438,8 +2457,6 @@ function processgeneralitems(generalitemsdata){
 		generalitems.push(generalitem);
 	});
 }
-
-
 
 function processcreatureparts(creaturepartsdata){
 	Object.keys(creaturepartsdata).forEach(key=>{
@@ -2475,6 +2492,7 @@ function processplantparts(plantpartsdata){
 
 	});
 }
+
 function processcreatures(creaturesdata){
 	Object.keys(creaturesdata).forEach(key=>{
 	let entry=creaturesdata[key];
@@ -2515,6 +2533,7 @@ function processcreatures(creaturesdata){
 	creatures.push(creature);
 	});
 }
+
 function processplants(plantsdata){
 	Object.keys(plantsdata).forEach(key=>{
 	let entry=plantsdata[key];
@@ -2537,6 +2556,7 @@ function processplants(plantsdata){
 	
 	});	
 }
+
 function processpreparations(preparationsdata){
 	Object.keys(preparationsdata).forEach(key=>{
 	let entry=preparationsdata[key];
@@ -2562,6 +2582,7 @@ function processpreparations(preparationsdata){
 	
 	});
 }
+
 function processfooddrink(fooddrinkdata){
 	Object.keys(fooddrinkdata).forEach(key=>{
 	let entry=fooddrinkdata[key];
