@@ -191,11 +191,11 @@ function getequipmentbonuses(rolldeets) {
 function equiprolltypematch(rolldeetsval, bns) {
 	const validBns = {
 		"Power": ["Power", "Casting"],
-		"Erudition": ["Erudition", "Casting"],
-		"Naturalism": ["Naturalism", "Casting"],
-		"Panache": ["Panache", "Casting"],
-		"Charms": ["Charms", "Power", "Casting"],
-		"DarkArts": ["DarkArts", "Power", "Casting"],
+		"Erudition": ["Erudition"],
+		"Naturalism": ["Naturalism"],
+		"Panache": ["Panache"],
+		"Charms": ["Charms", "Power"],
+		"DarkArts": ["DarkArts", "Power"],
 		"Defense": ["Defense", "Power", "Casting"],
 		"Transfiguration": ["Transfiguration", "Power", "Casting"],
 		"Casting": ["Casting", "Power", "Charms", "DarkArts", "Defense", "Transfiguration"],
@@ -217,7 +217,6 @@ function equiprolltypematch(rolldeetsval, bns) {
 
     // Check if bns is part of rolldeetsval's valid bonuses or if bns maps to rolldeetsval
     let result = (Array.isArray(validBns[rolldeetsval]) && validBns[rolldeetsval].includes(bns)) ||
-           (Array.isArray(validBns[bns]) ? validBns[bns].includes(rolldeetsval) : validBns[bns] === rolldeetsval) ||
            false;
 
    console.log(rolldeetsval, bns, result);
