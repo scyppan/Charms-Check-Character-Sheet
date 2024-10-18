@@ -105,6 +105,7 @@ function basicroll(id){
 	let rolldeets=roll(id);
 	postroll(rolldeets);
 }
+
 function spellroll(name){
 	let spell=spells.find(x=>x.name==name);
 	let rolldeets=roll(spell.skill);
@@ -123,6 +124,7 @@ function proficiencyroll(name, type){
 	rolldeets.threshold=proficiency.threshold;
 	postroll(rolldeets);
 }
+
 function potioncreationroll(name, type){
 	
 	let rolldeets;
@@ -163,50 +165,65 @@ function addtraitbonus(skill, subtype){
 	return bonusamt
 }
 
-function getequipmentbonuses(rolldeets){
-	
-	//outfit
-	if(charvals.gear.outfit.bonuses){
-		charvals.gear.outfit.bonuses.forEach(bns=>{
-			
-			if(rolldeets.val==normalizename(bns.type)){rolldeets.equipment+=parseInt(bns.amount);}
+function getequipmentbonuses(rolldeets) {
 
-		});}
+    // Helper function to process bonuses for each gear type
+    function processBonuses(bonuses) {
+        if (bonuses) {
+            bonuses.forEach(bns => {
+                if (equiprolltypematch(rolldeets.val, normalizename(bns.type))) {
+                    rolldeets.equipment += parseInt(bns.amount);
+                }
+            });
+        }
+    }
 
-	//wand
-	if(charvals.gear.wand.bonuses){
-		charvals.gear.wand.bonuses.forEach(bns=>{
-			
-			if(rolldeets.val==normalizename(bns.type)){rolldeets.equipment+=parseInt(bns.amount);}
+    // Process each piece of gear (outfit, wand, accessories)
+    processBonuses(charvals.gear.outfit.bonuses);
+    processBonuses(charvals.gear.wand.bonuses);
+    processBonuses(charvals.gear.accessory1.bonuses);
+    processBonuses(charvals.gear.accessory2.bonuses);
+    processBonuses(charvals.gear.accessory3.bonuses);
 
-		});}
-
-	//accessory1
-	if(charvals.gear.accessory1.bonuses){
-		charvals.gear.accessory1.bonuses.forEach(bns=>{
-			
-			if(rolldeets.val==normalizename(bns.type)){rolldeets.equipment+=parseInt(bns.amount);}
-
-		});}
-	
-	//accessory2
-	if(charvals.gear.accessory2.bonuses){
-		charvals.gear.accessory2.bonuses.forEach(bns=>{
-			
-			if(rolldeets.val==normalizename(bns.type)){rolldeets.equipment+=parseInt(bns.amount);}
-
-		});}
-
-	//accessory3
-	if(charvals.gear.accessory3.bonuses){
-		charvals.gear.accessory3.bonuses.forEach(bns=>{
-			
-			if(rolldeets.val==normalizename(bns.type)){rolldeets.equipment+=parseInt(bns.amount);}
-
-		});}
-
-		return rolldeets;
+    return rolldeets;
 }
+
+function equiprolltypematch(rolldeetsval, bns) {
+	const validBns = {
+		"Power": ["Power", "Casting"],
+		"Erudition": ["Erudition", "Casting"],
+		"Naturalism": ["Naturalism", "Casting"],
+		"Panache": ["Panache", "Casting"],
+		"Charms": ["Charms", "Power", "Casting"],
+		"DarkArts": ["DarkArts", "Power", "Casting"],
+		"Defense": ["Defense", "Power", "Casting"],
+		"Transfiguration": ["Transfiguration", "Power", "Casting"],
+		"Casting": ["Casting", "Power", "Charms", "DarkArts", "Defense", "Transfiguration"],
+		"Runes": ["Runes", "Erudition"],
+		"Arithmancy": ["Arithmancy", "Erudition"],
+		"Muggles": ["Muggles", "Erudition"],
+		"History": ["History", "Erudition"],
+		"Astronomy": ["Astronomy", "Naturalism"],
+		"Divination": ["Divination", "Naturalism"],
+		"Creatures": ["Creatures", "Naturalism"],
+		"Perception": ["Perception", "Naturalism"],
+		"Social": ["Social", "Naturalism"],
+		"Flying": ["Flying", "Panache"],
+		"Alchemy": ["Alchemy", "Panache"],
+		"Potions": ["Potions", "Panache"],
+		"Artificing": ["Artificing", "Panache"],
+		"Herbology": ["Herbology", "Panache"]
+	};
+
+    // Check if bns is part of rolldeetsval's valid bonuses or if bns maps to rolldeetsval
+    let result = (Array.isArray(validBns[rolldeetsval]) && validBns[rolldeetsval].includes(bns)) ||
+           (Array.isArray(validBns[bns]) ? validBns[bns].includes(rolldeetsval) : validBns[bns] === rolldeetsval) ||
+           false;
+
+   console.log(rolldeetsval, bns, result);
+   return result;
+}
+
 
 function getrollvals(rolldeets){
 	switch(rolldeets.skillname){
